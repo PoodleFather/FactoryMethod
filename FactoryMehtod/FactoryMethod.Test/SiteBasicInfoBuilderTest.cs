@@ -35,5 +35,15 @@ namespace FactoryMehtodLibLib.Test
             thisMock.Verify(v => v.GetMaker(It.IsAny<SiteBasicInfoMakerType>()), Times.Exactly(makerTypeCnt));
             mock_IMaker.Verify(v => v.Do(), Times.Exactly(makerTypeCnt));
         }
+        [TestMethod]
+        [DataRow("BoardAdminType", typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
+        public void GetMaker(Type expectedType, SiteBasicInfoMakerType type)
+        {
+            //Arrange
+
+            //Act
+            var actualType =  thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>());
+            Assert.AreEqual(expectedType, actualType);
+        }
     }
 }

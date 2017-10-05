@@ -24,10 +24,13 @@ namespace FactoryMehtodLib.SiteBasicInfo
 
         protected internal virtual void DoMaker()
         {
-            throw new NotImplementedException();
+            foreach (SiteBasicInfoMakerType type in Enum.GetValues(typeof(SiteBasicInfoMakerType)))
+            {
+                GetMaker(type).Do();
+            }
         }
 
-        internal ISiteBasicInfoMaker GetMaker(SiteBasicInfoMakerType type)
+        protected internal virtual ISiteBasicInfoMaker GetMaker(SiteBasicInfoMakerType type)
         {
             throw new NotImplementedException();
         }

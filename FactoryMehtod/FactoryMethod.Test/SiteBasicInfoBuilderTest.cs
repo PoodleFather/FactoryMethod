@@ -10,32 +10,30 @@ namespace FactoryMehtodLibLib.Test
     [TestClass]
     public class SiteBasicInfoBuilderTest
     {
-        Mock<SiteBasicInfoBuilder> mock = new Mock<SiteBasicInfoBuilder>();
+        Mock<SiteBasicInfoBuilder> thisMock = new Mock<SiteBasicInfoBuilder> { CallBase = true };
 
         [TestMethod]
         public void Builder()
         {
             //Arrange
-            mock.Setup(s => s.DoMaker());
+            thisMock.Setup(s => s.DoMaker());
             //Act
-            mock.Object.Builder();
+            thisMock.Object.Builder();
             //Assert
-            mock.Verify(v => v.DoMaker());
+            thisMock.Verify(v => v.DoMaker());
         }
         [TestMethod]
         public void DoMaker()
         {
             //Arrange
             Mock<ISiteBasicInfoMaker> mock_IMaker = new Mock<ISiteBasicInfoMaker>();
+            thisMock.Setup(s => s.GetMaker(It.IsAny<SiteBasicInfoMakerType>())).Returns(mock_IMaker.Object);
             //Act
-            mock.Object.DoMaker();
+            thisMock.Object.DoMaker();
             //Assert
-            foreach (SiteBasicInfoMakerType type in Enum.GetValues(typeof(SiteBasicInfoMakerType)))
-            {
-                mock.Verify(v => v.GetMaker(type), Times.Once);
-            }
-            mock_IMaker.Verify(v => v.Do(), Times.Exactly(Enum.GetNames(typeof(SiteBasicInfoMakerType)).Length));
-
+            int makerTypeCnt = Enum.GetNames(typeof(SiteBasicInfoMakerType)).Length;
+            thisMock.Verify(v => v.GetMaker(It.IsAny<SiteBasicInfoMakerType>()), Times.Exactly(makerTypeCnt));
+            mock_IMaker.Verify(v => v.Do(), Times.Exactly(makerTypeCnt));
         }
     }
 }

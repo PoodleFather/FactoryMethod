@@ -4,7 +4,15 @@ using System.Text;
 
 namespace FactoryMehtodLib.SiteBasicInfo
 {
-    public class SiteBasicInfoBuilder
+    public interface ISiteBasicInfoBuilder 
     {
+        void Builder();
+    }
+    public class SiteBasicInfoBuilder : ISiteBasicInfoBuilder
+    {
+        public void Builder()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

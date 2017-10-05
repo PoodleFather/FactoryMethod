@@ -1,5 +1,7 @@
 using FactoryMehtodLib.Repository;
+using FactoryMehtodLib.SiteBasicInfo;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System.Linq;
 
 namespace FactoryMehtodLibLib.Test
@@ -7,11 +9,17 @@ namespace FactoryMehtodLibLib.Test
     [TestClass]
     public class SiteBasicInfoBuilderTest
     {
+        Mock<SiteBasicInfoBuilder> mock = new Mock<SiteBasicInfoBuilder>();
+
         [TestMethod]
-        public void TestMethod1()
+        public void Builder()
         {
-            var unit = new UnitOfWorks();
-            var a = unit.BoardAdminRepo.GetById(1);
+            //Arrange
+
+            //Act
+            mock.Object.Builder();
+            //Assert
+            mock.Verify(v => v.DoMaker());
         }
     }
 }

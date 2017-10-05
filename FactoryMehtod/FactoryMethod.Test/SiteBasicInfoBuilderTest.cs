@@ -15,7 +15,7 @@ namespace FactoryMehtodLibLib.Test
         public void Builder()
         {
             //Arrange
-
+            mock.Setup(s => s.DoMaker());
             //Act
             mock.Object.Builder();
             //Assert

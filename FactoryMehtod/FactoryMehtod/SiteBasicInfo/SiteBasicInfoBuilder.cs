@@ -6,6 +6,11 @@ using System.Text;
 
 namespace FactoryMehtodLib.SiteBasicInfo
 {
+    public enum SiteBasicInfoMakerType
+    {
+        BoardAdmin
+    }
+
     public interface ISiteBasicInfoBuilder 
     {
         void Builder();
@@ -18,6 +23,11 @@ namespace FactoryMehtodLib.SiteBasicInfo
         }
 
         protected internal virtual void DoMaker()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal ISiteBasicInfoMaker GetMaker(SiteBasicInfoMakerType type)
         {
             throw new NotImplementedException();
         }

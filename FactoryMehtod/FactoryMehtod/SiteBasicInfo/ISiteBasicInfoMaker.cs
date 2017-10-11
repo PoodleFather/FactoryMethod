@@ -1,6 +1,8 @@
-﻿namespace FactoryMehtodLib.SiteBasicInfo
+﻿using System;
+
+namespace FactoryMehtodLib.SiteBasicInfo
 {
-    public interface ISiteBasicInfoMaker
+    public interface ISiteBasicInfoMaker : IDisposable
     {
         void Do();
     }

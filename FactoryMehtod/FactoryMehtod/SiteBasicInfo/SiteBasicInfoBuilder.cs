@@ -26,7 +26,10 @@ namespace FactoryMehtodLib.SiteBasicInfo
         {
             foreach (SiteBasicInfoMakerType type in Enum.GetValues(typeof(SiteBasicInfoMakerType)))
             {
-                GetMaker(type).Do();
+                using (var maker = GetMaker(type))
+                {
+                    maker.Do();
+                }
             }
         }
 

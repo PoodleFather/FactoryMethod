@@ -1,5 +1,6 @@
 using FactoryMehtodLib.Repository;
 using FactoryMehtodLib.SiteBasicInfo;
+using FactoryMethodLib.Test;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -36,16 +37,29 @@ namespace FactoryMehtodLibLib.Test
             mock_IMaker.Verify(v => v.Do(), Times.Exactly(makerTypeCnt));
         }
         [TestMethod]
-        [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
-        public void GetMaker(Type expectedType, SiteBasicInfoMakerType type)
+        public void GetMaker_NotThrowException()
         {
             //Arrange
-            thisMock.Setup(s=>s.GetInstance(type));
+            thisMock.Setup(s=>s.GetInstance(It.IsAny<SiteBasicInfoMakerType>()));
             //Act
-            var actualType =  thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>());
+            AssertEx.NoExceptionThrown<Exception>(()=> thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>()));
             //Assert
             thisMock.Verify(v=>v.GetInstance(It.IsAny<SiteBasicInfoMakerType>()), Times.Once);
-            Assert.AreEqual(expectedType, actualType.GetType());
+        }
+        [TestMethod]
+        public void GetMaker_ThrowException()
+        {
+            //Arrange
+            thisMock.Setup(s => s.GetInstance(It.IsAny<SiteBasicInfoMakerType>())).Returns<SiteBasicInfoMakerType>(null);
+            //Act Assert
+            Assert.ThrowsException<Exception>(()=> thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>()));
+            thisMock.Verify(v => v.GetInstance(It.IsAny<SiteBasicInfoMakerType>()), Times.Once);
+        }
+        [TestMethod]
+        [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
+        public void GetInstance(Type expectedType, SiteBasicInfoMakerType type)
+        {
+            //Assert.AreEqual(expectedType, actualType.GetType());
         }
     }
 }

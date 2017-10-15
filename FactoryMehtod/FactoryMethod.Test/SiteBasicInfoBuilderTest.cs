@@ -40,7 +40,8 @@ namespace FactoryMehtodLibLib.Test
         public void GetMaker_NotThrowException()
         {
             //Arrange
-            thisMock.Setup(s=>s.GetInstance(It.IsAny<SiteBasicInfoMakerType>()));
+            var mockMaker = new Mock<ISiteBasicInfoMaker>();
+            thisMock.Setup(s=>s.GetInstance(It.IsAny<SiteBasicInfoMakerType>())).Returns(mockMaker.Object);
             //Act
             AssertEx.NoExceptionThrown<Exception>(()=> thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>()));
             //Assert

@@ -35,9 +35,9 @@ namespace FactoryMehtodLib.SiteBasicInfo
 
         protected internal virtual ISiteBasicInfoMaker GetMaker(SiteBasicInfoMakerType type)
         {
-            return GetInstance(type);
-            if (type == SiteBasicInfoMakerType.BoardAdmin) return new BoardAdminMaker();
-            throw new Exception(type.ToString() + "  is  not valid SiteBasicInfoMakerType ");
+            var maker = GetInstance(type);
+            if (maker == null) throw new Exception(type.ToString() + "  is  not valid SiteBasicInfoMakerType ");
+            return maker;
         }
         protected internal virtual ISiteBasicInfoMaker GetInstance(SiteBasicInfoMakerType type)
         {

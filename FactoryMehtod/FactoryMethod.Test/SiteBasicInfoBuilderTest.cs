@@ -39,9 +39,12 @@ namespace FactoryMehtodLibLib.Test
         [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
         public void GetMaker(Type expectedType, SiteBasicInfoMakerType type)
         {
+            //Arrange
+            thisMock.Setup(s=>s.GetInstance(type));
             //Act
             var actualType =  thisMock.Object.GetMaker(It.IsAny<SiteBasicInfoMakerType>());
             //Assert
+            thisMock.Verify(v=>v.GetInstance(It.IsAny<SiteBasicInfoMakerType>()), Times.Once);
             Assert.AreEqual(expectedType, actualType.GetType());
         }
     }

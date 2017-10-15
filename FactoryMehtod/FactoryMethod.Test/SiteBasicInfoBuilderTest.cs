@@ -57,11 +57,28 @@ namespace FactoryMehtodLibLib.Test
             thisMock.Verify(v => v.GetInstance(It.IsAny<SiteBasicInfoMakerType>()), Times.Once);
         }
         [TestMethod]
+        public void GetInstance()
+        {
+            //Arrange
+
+            //Act
+            thisMock.Object.GetInstance(It.IsAny<SiteBasicInfoMakerType>());
+            //Assert
+            thisMock.Verify(v => v.GetTypeOfNameSpace(It.IsAny<SiteBasicInfoMakerType>()), Times.Once);
+        }
+        [TestMethod]
         [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
-        public void GetInstance(Type expectedType, SiteBasicInfoMakerType type)
+        [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.Categroy)]
+        public void GetInstance_Unit(Type expectedType, SiteBasicInfoMakerType type)
         {
             var actualIntance = thisMock.Object.GetInstance(type);
             Assert.AreEqual(expectedType, actualIntance.GetType());
+        }
+
+        [TestMethod]
+        public void GetType()
+        {
+
         }
     }
 }

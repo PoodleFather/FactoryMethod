@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 [assembly: InternalsVisibleTo("FactoryMethodLib.Test")]
@@ -40,8 +41,9 @@ namespace FactoryMehtodLib.SiteBasicInfo
             return maker;
         }
         protected internal virtual ISiteBasicInfoMaker GetInstance(SiteBasicInfoMakerType type)
-        {
-            throw new NotImplementedException();
+        { 
+            Type makerType = Type.GetType($"FactoryMehtodLib.SiteBasicInfo.{type.ToString()}Maker");
+            return (ISiteBasicInfoMaker)Activator.CreateInstance(makerType);
         }
     }
 }

@@ -60,7 +60,8 @@ namespace FactoryMehtodLibLib.Test
         [DataRow(typeof(BoardAdminMaker), SiteBasicInfoMakerType.BoardAdmin)]
         public void GetInstance(Type expectedType, SiteBasicInfoMakerType type)
         {
-            //Assert.AreEqual(expectedType, actualType.GetType());
+            var actualIntance = thisMock.Object.GetInstance(type);
+            Assert.AreEqual(expectedType, actualIntance.GetType());
         }
     }
 }

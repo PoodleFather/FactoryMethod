@@ -9,12 +9,12 @@ namespace FactoryMehtodLib.SiteBasicInfo
     }
     public class SiteBasicInfoMaker : ISiteBasicInfoMaker
     {
-        protected Joiner TemplateJoiner { get; set; }
-        protected Joiner CreatedJoiner { get; set; }
+        protected internal Joiner TemplateJoiner { get; set; }
+        protected internal Joiner CreatedJoiner { get; set; }
 
-        public SiteBasicInfoMaker()
+        public SiteBasicInfoMaker(Joiner createdJoiner)
         {
-
+            CreatedJoiner = createdJoiner;
         }
         public void Do()
         {

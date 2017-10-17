@@ -4,13 +4,8 @@ using System.Text;
 
 namespace FactoryMehtodLib.SiteBasicInfo
 {
-    public class BoardAdminMaker : ISiteBasicInfoMaker
+    public class BoardAdminMaker : SiteBasicInfoMaker
     {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Do()
         {
             throw new NotImplementedException();

@@ -54,6 +54,7 @@ namespace FactoryMehtodLib.SiteBasicInfo
         {
             return GetInstance(type);
         }
+
         protected internal virtual ISiteBasicInfoMaker GetInstance(SiteBasicInfoMakerType type)
         { 
             return CreateIntance(GetTypeOfNameSpace(type));
@@ -65,6 +66,7 @@ namespace FactoryMehtodLib.SiteBasicInfo
             if (makerType == null) throw new Exception(type.ToString() + "  is  not valid SiteBasicInfoMakerType ");
             return makerType;
         }
+
         protected internal virtual ISiteBasicInfoMaker CreateIntance(Type classType)
         {
             return (ISiteBasicInfoMaker)ActivatorWrap.CreateInstance(classType);

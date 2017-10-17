@@ -21,5 +21,7 @@ namespace FactoryMehtodLib.Model
         public string BoardName { get; set; }
 
         public string BoardTitle { get; set; }
+
+        public int JoinerId { get; set; }
     }
 }

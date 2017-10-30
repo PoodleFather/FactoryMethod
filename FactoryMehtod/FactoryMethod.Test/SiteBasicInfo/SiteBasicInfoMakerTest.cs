@@ -5,6 +5,8 @@ using NUnit.Framework;
 using FactoryMehtodLib.SiteBasicInfo;
 using Moq;
 using FactoryMehtodLib.Model;
+using FactoryMehtodLib.SiteBasicInfo.Wrap;
+using System.Reflection;
 
 namespace FactoryMethodLib.Test.SiteBasicInfo
 {
@@ -13,6 +15,7 @@ namespace FactoryMethodLib.Test.SiteBasicInfo
     {
         Mock<SiteBasicInfoMaker> mockThis;
         Mock<Joiner> mockCreatedJoiner;
+
         [SetUp]
         public void setup()
         {
@@ -29,12 +32,66 @@ namespace FactoryMethodLib.Test.SiteBasicInfo
             Assert.AreEqual(mockCreatedJoiner.Object, mockThis.Object.CreatedJoiner);
         }
         [Test]
-        public void SiteBasicInfoMaker_Dispose()
+        public void Dispose()
         {
+            //Arrange
             mockThis.Object.TemplateJoiner = new Joiner();
+            //Act
             mockThis.Object.Dispose();
+            //Assert
+            mockThis.Verify(v => v.Dispose(mockThis.Object.disposed), Times.Once);
+            mockThis.Verify(v => v.SuppressFinalize(mockThis.Object), Times.Once);
             Assert.AreEqual(null, mockThis.Object.CreatedJoiner);
             Assert.AreEqual(null, mockThis.Object.TemplateJoiner);
+        }
+        [Test]
+        public void Dispose_false_disposed_True()
+        {
+            //Arrnage
+            mockThis.Object.disposed = false;
+            var props = typeof(SiteBasicInfoMaker).GetProperties(BindingFlags.NonPublic
+                | BindingFlags.Public
+                | BindingFlags.Instance);
+            mockThis.Setup(s => s.GetAllProperties()).Returns(props);
+            //Act
+            mockThis.Object.Dispose(true);
+            //Assert
+            mockThis.Verify(v => v.GetAllProperties(), Times.Once);
+            Assert.IsTrue(mockThis.Object.disposed);
+            foreach (var prop in mockThis.Object.GetType().GetProperties())
+            {
+                if (prop.CanWrite) Assert.IsNull(prop);
+            }
+        }
+        [Test]
+        public void Dispose_True_disposed_True()
+        {
+            //Arrnage
+            mockThis.Object.disposed = true;
+            var props = typeof(SiteBasicInfoMaker).GetProperties(BindingFlags.NonPublic
+                | BindingFlags.Public
+                | BindingFlags.Instance);
+            mockThis.Setup(s => s.GetAllProperties()).Returns(props);
+            //Act
+            mockThis.Object.Dispose(true);
+            //Assert
+            mockThis.Verify(v => v.GetAllProperties(), Times.Never);
+            Assert.IsTrue(mockThis.Object.disposed);
+        }
+        [Test]
+        public void Dispose_false_disposed_false()
+        {
+            //Arrnage
+            mockThis.Object.disposed = false;
+            var props = typeof(SiteBasicInfoMaker).GetProperties(BindingFlags.NonPublic
+                | BindingFlags.Public
+                | BindingFlags.Instance);
+            mockThis.Setup(s => s.GetAllProperties()).Returns(props);
+            //Act
+            mockThis.Object.Dispose(false);
+            //Assert
+            mockThis.Verify(v => v.GetAllProperties(), Times.Never);
+            Assert.IsTrue(mockThis.Object.disposed);
         }
     }
 }

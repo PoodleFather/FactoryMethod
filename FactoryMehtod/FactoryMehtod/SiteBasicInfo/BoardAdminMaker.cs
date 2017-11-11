@@ -13,7 +13,7 @@ namespace FactoryMehtodLib.SiteBasicInfo
         {
         }
 
-        public void Do()
+        public override void Do()
         {
             throw new NotImplementedException();
         }

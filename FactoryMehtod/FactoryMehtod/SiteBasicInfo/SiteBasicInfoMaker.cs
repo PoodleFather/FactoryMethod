@@ -19,7 +19,7 @@ namespace FactoryMehtodLib.SiteBasicInfo
         {
             CreatedJoiner = createdJoiner;
         }
-        public void Do()
+        public virtual void Do()
         {
             throw new NotImplementedException();
         }

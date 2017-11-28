@@ -9,16 +9,23 @@ using System.Text;
 namespace FactoryMethodLib.Test.SiteBasicInfo
 {
     [TestFixture]
-    public class BoardAdminMakerTest
+    public class BoardAdminMakerTest : MockThis<BoardAdminMaker>
     {
-        Mock<BoardAdminMaker> mockThis;
         Mock<Joiner> mockJoiner;
+
         [SetUp]
-        public void setup()
+        public void Setup()
         {
-            mockJoiner = new Mock<Joiner>();
-            mockThis = new Mock<BoardAdminMaker>(mockJoiner.Object) { CallBase = true };
+            SetMock<Joiner>();
+            mockSetup(GetMock<Joiner>());
         }
-        
+        [Test]
+        public void Do()
+        {
+            //Arrange
+            //Act
+            //mockThis.Object.Do();
+            //Assert
+        }
     }
 }

@@ -10,7 +10,7 @@ using System.Linq;
 namespace FactoryMehtodLibLib.Test
 {
     [TestClass]
-    public class SiteBasicInfoBuilderTest
+    public class SiteBasicInfoBuilderTest : MockThis<SiteBasicInfoBuilder>
     {
         Mock<SiteBasicInfoBuilder> thisMock = new Mock<SiteBasicInfoBuilder> { CallBase = true };
         Mock<IActivatorWrap> mockActivatorWrap = new Mock<IActivatorWrap>();
